@@ -1,13 +1,16 @@
 <template>
-  <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div >
+    <AntModel />
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import { Component, Vue } from "vue-property-decorator";
-
-  @Component
+  import HelloWorld from "@/components/HelloWorld.vue";
+  import AntModel from "@/components/Antmodel.vue";
+  @Component({
+    components: {AntModel,HelloWorld}
+  })
 export default class Home extends Vue{
 
 }
