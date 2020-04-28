@@ -3,7 +3,6 @@
     <div class="home">
         <a-button>ant button</a-button>
         <a-button type="primary" @click="info">ant button</a-button>
-        <HelloWorld msg="Welcome to Your Vue.js App" />
     </div>
 </template>
 
