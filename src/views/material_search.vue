@@ -1,9 +1,16 @@
 <template>
 	<div class="page">
 		
+		<div class="search_box flex ">
+			<div class="search flex flex_align_c">
+			    <a-icon class="search_icon" type="search" />
+				<input class="search_input bg_tr bd_0 flex_grow" placeholder="搜索文章/视频" v-model="search_value" @enter='search' />
+			</div>
+			<div class='search_false no_shrink flex_grow flex_c'>取消</div>
+		</div>
 
-		<div class="head flex flex_align_c">
-			<van-tabs class='menu_bar flex_grow' 
+		<div class="menu_box flex">
+			<van-tabs class='menu_bar ' 
 				v-model="menu_index"
 				title-active-color='#333333'
 				title-inactive-color='#999999'
@@ -12,32 +19,6 @@
 				<van-tab class='menu_item' v-for="(menu_item,index) in menu" :key='index' :title="menu_item"></van-tab>
 			</van-tabs>
 
-			<!-- <div class="head_btns no_shrink flex flex_jc_e"> -->
-				<a-button class='search_btn no_shrink' icon="search" @click="jump2" data-url="/material_search">搜索</a-button>
-				<a-button class='edit_btn no_shrink' type="danger">修改品牌</a-button>
-			<!-- </div> -->
-
-		</div>
-
-
-		<div class="sort_box flex flex_jc_b">
-			<!-- flex_grow  -->
-			<van-tabs class="sort_bar flex_grow" 
-				v-model="sort_index" 
-				sticky 
-				animated 
-				swipeable 
-				title-active-color='#FF4A5A'
-				title-inactive-color='#666666'
-				background='transparent'
-				>
-				<!-- van-tab -->
-				<van-tab  v-for="(sort_item,index) in sort" :key='index'>
-				    <template #title><div class='sort_item'>{{sort_item}}</div></template>
-				  </van-tab>
-				<!-- <div class='sort_item' v-for="(sort_item,index) in sort" :key='index' :title="sort_item"></div> -->
-			</van-tabs>
-			<a-icon class="sort_more no_shrink flex_c" type="menu" />
 		</div>
 
 		<van-list
@@ -48,13 +29,13 @@
 			@load="get_list"
 		>
 			
-			<div class="new_li flex flex flex_jc_b" v-for="(news,index) in list" :key='index' @click="jump2" data-url="/article" :data-id='news.informationId'>
-				<div class="new_info flex_grow flex flex_column">
+			<div class="new_li flex flex flex_jc_b" v-for="(news,index) in list" :key='index' @click="jump" data-url="/pages/new_info/new_info" :data-id='news.informationId'>
+				<div class="new_info  flex flex_column">
 					<!-- <div class="new_title txt_over_ell">{{news.title}}</div> -->
 					<!-- flex_grow -->
 					<div class="new_txt ">{{news.txt}}</div>
 					<div class="new_tips">
-						<img src="@/../public/img/share.png" alt="" class="new_icon">
+						<img src="@/../static/img/share.png" alt="" class="new_icon">
 						<span class="new_num">147人分享</span>
 					</div>
 				</div>
@@ -64,76 +45,21 @@
 		
 	</div>
 </template>
-<!-- 
-<script lang="ts">
-	import { Component, Vue } from "vue-property-decorator";
-
-	@Component
-	export default class About extends Vue {
-		// data
-		data() {
-			return {
-				menu: [
-					'文章',
-					'视频',
-				],
-
-				menu_index: 1,
-				sort: [
-					'推荐',
-					'中国平安',
-					'中国平安',
-					'中国平安',
-					'中国平安',
-				],
-				sort_index: 1,
-
-				list_loading: false,
-				list_finished: true,
-				list: [
-					//
-					{
-						title: '家具企业工伤风险高',
-						txt: '43岁的张文军本是东莞市厚镇街的一名家具厂工人，2016年，在厂里操作机器时，他被刀片43岁的张文军本是东莞市厚镇街的一名家具厂工人',
-						img: '//webh5.wangjiangwei.top/logo/default.png',
-					},
-				],
-
-			};
-		}
-
-
-		// methods
-		get_list() {
-			return false
-		}
-
-
-	}
-</script>
- -->
 
 <script>
-	// import wjw_com_ts from '@/../public/common/wjw_uni/wjw_com_ts.js';
+	import wjw_com_ts from '@/../public/common/wjw_uni/wjw_com_ts.js';
 
 	export default {
-		// data
 		data() {
 			return {
+				search_value: '',
+
 				menu: [
 					'文章',
 					'视频',
 				],
 
 				menu_index: 1,
-				sort: [
-					'推荐',
-					'中国平安',
-					'中国平安',
-					'中国平安',
-					'中国平安',
-				],
-				sort_index: 1,
 
 				list_loading: false,
 				list_finished: true,
@@ -142,7 +68,7 @@
 					{
 						title: '家具企业工伤风险高',
 						txt: '43岁的张文军本是东莞市厚镇街的一名家具厂工人，2016年，在厂里操作机器时，他被刀片43岁的张文军本是东莞市厚镇街的一名家具厂工人',
-						img: '/img/default.png',
+						img: '/img/add_material_bg2.png',
 					},
 				],
 
@@ -151,14 +77,14 @@
 
 
 
-		// 方法
 		methods: {
-			// ...wjw_com_ts,
-		    get_list() {
+			...wjw_com_ts,
+
+		    search() {
 		        return false
 		    },
-		    jump2(e) {
-		        this.jump(e);
+		    get_list() {
+		        return false
 		    },
 		},
 
@@ -171,11 +97,36 @@
 		background: #EEF0F4;
 	}
 
-	.head{
-
+	.search_box{
+		padding: calc(40 / 750 * 100vw);
 	}
-	.menu_bar{
+	.search{
+		width:calc(590 / 750 * 100vw);
+		height:calc(72 / 750 * 100vw);
+		background:rgba(247,247,247,1);
+		border-radius:calc(40 / 750 * 100vw);
 
+		box-sizing: border-box;
+	}
+	.search_icon{
+		margin: 0 calc(32 / 750 * 100vw);
+	}
+	.search_input{
+		font-size: calc(28 / 750 * 100vw);
+		font-family:PingFangSC-Regular,PingFang SC;
+		font-weight:400;
+		/*color:rgba(204,204,204,1);*/
+	}
+	.search_false{
+		border: 0;
+		font-size:calc(28 / 750 * 100vw);
+		font-family:PingFangSC-Regular,PingFang SC;
+		font-weight:400;
+		color:rgba(153,153,153,1);
+	}
+	.menu_box{}
+	.menu_bar{
+		width: calc(300 / 750 * 100vw);
 	}
 	.menu_item{
 
