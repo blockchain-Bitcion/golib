@@ -1,0 +1,6 @@
+[submodule "test"]
+	path = test
+	url = git@github.com:dominictarr/event-stream_tests.git
+[submodule "Downloads/lotus-1.4.0-1.3.0/extern/filecoin-ffi/extern/filecoin-ffi"]
+	path = Downloads/lotus-1.4.0-1.3.0/extern/filecoin-ffi/extern/filecoin-ffi
+	url = https://github.com/filecoin-project/filecoin-ffi.git
